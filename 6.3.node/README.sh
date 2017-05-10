@@ -1,16 +1,19 @@
-#### 多容器的应用栈示例
+########## 多容器的应用栈：node ##########
 
-######## node ########
-
-#### 镜像构建
+# Node.js镜像构建
+cd ./nodejs
+docker build -t zhuyuan001/nodejs .
 
 # redis基础镜像：
+cd ./redis_base
 docker build -t zhuyuan001/redis .
 
 # redis主镜像：
+cd ./redis_primary
 docker build -t zhuyuan001/redis_primary .
 
 # redis副本镜像：
+cd ./redis_replica
 docker build -t zhuyuan001/redis_replica .
 
 #### redis 后端集群
