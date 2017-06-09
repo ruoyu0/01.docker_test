@@ -6,7 +6,7 @@ web:
     # 卷挂载上去了，所以外面改变文件内容，里面的服务也跟着变化 
     volumes:
         - .:/composeapp
-    # link docker内部连网方式的一种,因为redis容器没有ip，(不能使用Networking方式来互相通信)
+    # link docker内部连网方式的一种,(因为redis容器没有ip，不能使用Networking方式来互相通信, 个人理解)
     links:
         - redis
 redis:
