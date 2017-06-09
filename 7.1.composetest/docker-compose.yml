@@ -1,0 +1,12 @@
+web:
+    image: zhuyuan001/composeapp
+    command: python app.py
+    ports:
+        - "5000:5000"
+    volumes:
+        - .:/composeapp
+    # link docker内部连网方式的一种
+    links:
+        - redis
+redis:
+    image: redis
