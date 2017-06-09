@@ -1,3 +1,7 @@
+# ### 项目概览
+整个project建立两个容器，redis容器提供redis数据库服务，compose_web提供web服务，使用flask框架，
+两个容器通过docker-compose来管理，以达到熟悉docker-compose编排服务的目的
+
 
 # 拉取python:2.7 images
 docker pull python:2.7
@@ -8,7 +12,7 @@ docker build -t zhuyuan001/composeapp .
 # 拉取redis镜像
 docker pull redis
 
-##########
+# ###
 # 与yml文件同样效果的docker run命令
 docker run -d --name redis redis
 docker run -d -p 5000:5000 --link redis:redis --name compose_web zhuyuan001/composeapp python app.py
@@ -23,7 +27,7 @@ docker exec -i redis redis-cli get hits
 docker stop compose_web redis
 docker rm compose_web redis
 
-##########
+# ###
 # 使用docker-compose up命令启动示例应用服务, 可以看到log随后输出
 docker-compose up
 
