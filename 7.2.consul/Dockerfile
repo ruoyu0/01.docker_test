@@ -1,0 +1,42 @@
+FROM ubuntu:14.04
+MAINTAINER zhuyuan "849434163@qq.com"
+# 重置缓存时间
+ENV REFRESHED_AT 2017-06-10
+
+# build command
+# docker build -t "zhuyuan001/consul" .
+
+#### ubuntu14.04系统换阿里源
+RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak 
+COPY sources.list /etc/apt/sources.list 
+# 需要sources.list文件
+RUN apt-get update
+
+#### ubuntu修改PS1变量
+RUN echo 'export PS1="\[\e[37;1m\][\[\e[36;1m\]\u\[\e[37m\]@\[\e[36m\]\h \[\e[33m\]\W\[\e[37m\]]\[\e[36m\]$\[\e[m\]"' >> /root/.bashrc
+
+# ubuntu 安装curl, unzip
+RUN apt-get install -y curl unzip
+
+
+# consul zip包下载(version: 0.8.4)和安装
+ADD https://releases.hashicorp.com/consul/0.8.4/consul_0.8.4_linux_amd64.zip /tmp/consul.zip
+RUN cd /usr/sbin && unzip /tmp/consul.zip && chmod +x /usr/sbin/consul && rm /tmp/consul.zip
+# consul zip包下载(version: 0.3.1)和安装
+# ADD https://releases.hashicorp.com/consul/0.3.1/consul_0.3.1_linux_amd64.zip /tmp/consul.zip
+# RUN cd /usr/sbin && unzip /tmp/consul.zip && chmod +x /usr/sbin/consul && rm /tmp/consul.zip
+ADD consul.json /config/
+
+# consul webui 下载(version: 0.8.4)和安装
+ADD https://releases.hashicorp.com/consul/0.8.4/consul_0.8.4_web_ui.zip /tmp/webui.zip
+RUN mkdir /webui/ && cd /webui/ && unzip /tmp/webui.zip 
+# consul webui 下载(version: 0.3.1)和安装
+# ADD https://releases.hashicorp.com/consul/0.3.1/consul_0.3.1_web_ui.zip /tmp/webui.zip
+# RUN cd /tmp/ && unzip webui.zip && mv dist/ /webui/
+
+EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 8500 53/udp
+
+VOLUME ["/data"]
+
+ENTRYPOINT [ "/usr/sbin/consul", "agent", "-config-dir=/config"  ]
+CMD []
