@@ -4,7 +4,7 @@
 ```
 # version: 0.3.1
 docker build -f ./Dockerfile_0.3.1 -t "zhuyuan001/consul03" .
-# version: 0.3.1
+# version: 0.8.4
 docker build -f ./Dockerfile_0.8.4 -t "zhuyuan001/consul" .
 ```
 
