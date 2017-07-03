@@ -48,12 +48,12 @@ docker run -h $HOSTNAME -p 8300:8300 -p 8301:8301 -p 8301:8301/udp \
 # -expect：告诉Consul集群有多少代理。
 ```
 
-# 查看ip地址
+##### 查看ip地址
 ```
 docker exec -i larry_agent ifconfig
 ```
 
-# 启动剩下的curly_agent节点
+##### 启动剩下的curly_agent节点
 ```
 docker stop `docker ps -lq`
 docker rm `docker ps -lq`
@@ -62,7 +62,7 @@ docker run -h $HOSTNAME -p 8300:8300 -p 8301:8301 -p 8301:8301/udp \
 --name curly_agent zhuyuan001/consul -server -join=192.168.11.4 -advertise=192.168.11.5
 ```
 
-# 启动剩下的moe_agent节点
+##### 启动剩下的moe_agent节点
 ```
 docker stop `docker ps -lq`
 docker rm `docker ps -lq`
